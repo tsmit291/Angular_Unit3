@@ -22,7 +22,6 @@ __What will our new file structure look like?__
         └── style.css
     └── views
 ├── routes
-└── views
 ├── .gitignore
 ├── app.js
 ├── package.json
@@ -30,8 +29,8 @@ __What will our new file structure look like?__
 ```
 
 ## Objectives
-* Be able to CRUD from Angular to Postgres
 * Be able to use Angular in a full stack application
+* Use `$http` to CRUD from Angular to Postgres
 * Know the difference between client side routes and server side routes
 * Be able to send and recieve data by making api calls from your client side to your server side
 
@@ -266,6 +265,7 @@ a page, your going to send back `json` using `res.json`.
 __Let's clean up some of our existing routes:__
 
 * Delete the `users.js` route, we're not going to use it.
+* Delete your Express views directory. We're not going to use server side templates.
 * Rename `index.js` to `api.js`
 * What changes do you need to make in your Express `app.js` to make this route a
 working route. You've done this a million times by now. We want all of our pirate
