@@ -122,7 +122,7 @@ git commit -m "instantiate pirates module"
 
 By now, you should have a basic Angular app that uses one controller and renders
 one partial using angular-route ($routeProvider). If you're stuck, you can check
-some of your files [here]('example_code.md#angular-routes') . BUT first _really_ try and debug
+some of your files [here](rescue/example_code.md#angular-routes) . BUT first _really_ try and debug
 this yourself. Are there any helpful errors in the console? Read carefully.
 
 ## Setting Up Our Database
@@ -284,7 +284,7 @@ __How do you know if you've done it right?__
 Go to `http://localhost:3000/api/pirates`. You should see a `json` object of  all
 your pirates.
 
-[RESCUE CODE](example_code.md)
+[RESCUE CODE](rescue/example_code.md#express-routes)
 
 #### Step 2: Assign the response to a `$scope` variable
 
@@ -359,5 +359,6 @@ __Final Exercise:__
 You've come a _long_ way since you spun up your first Angular app (remember the Reddit Clone?!).
 That app is a mess when you consider how much you now know about MVC architecture.
 
-Your `deliverable` is to refactor __Reddit Clone__ to be more modular and use an Express / Postgres backend.
-Your __Reddit Clone__ should have full CRUD operations for Posts and Comments
+* refactor __Reddit Clone__ to be more modular and use an Express / Postgres backend.
+* Your __Reddit Clone__ should have full CRUD operations for Posts and Comments.
+* Modify your `knex` configuration and deploy to Heroku
