@@ -19,7 +19,7 @@ __What will our new file structure look like?__
         ├── controllers
         └── services
     ├── stylesheets
-        └── main.css
+        └── style.css
     └── views
 ├── routes
 └── views
@@ -122,7 +122,7 @@ git commit -m "instantiate pirates module"
 
 By now, you should have a basic Angular app that uses one controller and renders
 one partial using angular-route ($routeProvider). If you're stuck, you can check
-some of your files [here]('example_code.md') . BUT first _really_ try and debug
+some of your files [here]('example_code.md#angular-routes') . BUT first _really_ try and debug
 this yourself. Are there any helpful errors in the console? Read carefully.
 
 ## Setting Up Our Database
@@ -185,7 +185,7 @@ can you do this?
 
 ```sh
 pirates_development=# select * from pirates;
- id |      name       | poison  | accessory  | image_url      | created_at | updated_at | 
+ id |      name       | poison  | accessory  | image_url      | created_at | updated_at |
 ----+-----------------+---------+------------+----------------+-------------------------+
   1 | Anne Bonney     | Rum     | hot temper | some_image.jpg |            |
   2 | One Eyed Willie | Whiskey | eye patch  | some_image.jpg |            |
@@ -202,7 +202,7 @@ git commit -m "seed pirates"
 
 ### Displaying Pirates in the View
 
-__Excellent. Now we're on to showing our pirats in `pirates.html`.__
+__Excellent. Now we're on to showing our pirates in `pirates.html`.__
 
 Here's a checklist of the things we'll need to do to make this happen:
 
@@ -212,34 +212,31 @@ Here's a checklist of the things we'll need to do to make this happen:
 2. Assign the response to a `$scope` variable that we can use in our view
 3. In our view, iterate through our array of pirates and display the following:
   * name
-  * title
-  * author
-  * description
-  * created at
-  * add some bootstrap along the way to make it look nice
+  * poison
+  * accessory
+  * image_url (but as an image)
+
+__We'll add some bootstrap along the way to make it look nice__
 
 Let's start from the top.
 
 #### Step 1: Making a call to our Express route using an Angular Service
 
-To keep things simple and just focus on the nuts and bolts here, we're going to
-keep all of our code in `app.js`. Let's add a service that will make our database
-call for us.
+In the spirit of keeping our code modular and separating our concerns, let's add
+a service that will make our database calls for us.
 
-__NOTE__: Remember when you created functions outside of your Express routes
-that made your database calls for you and just passed the response back to your
-route? Using a service in Angular is similar, in that we do this to keep our code
-neatly organized, practicing "single responsibility and separation of concerns".
-There's also a concept in MVC of keeping your controllers "skinny". Do some Googling
-later and read more about that.
+__There's also a concept in MVC of keeping your controllers "skinny". Do some Googling
+later and read more about MVC architecture.__
 
-__Adding a service to `app.js` - I'm going to give you this one for free__
+__Adding a `PiratesService service to our app:__
 
-```
-app.factory('PostsService', function ($http) {
+```js
+// services/pirates_service.js
+
+app.factory('PiratesService', function ($http) {
   return {
     all: function() {
-      return $http.get('/api/posts').then(function (response) {
+      return $http.get('/api/pirates').then(function (response) {
         return response.data;
       })
     }
@@ -247,115 +244,99 @@ app.factory('PostsService', function ($http) {
 })
 
 ```
+[More on Services, Factories and Angular](http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/)
 
 Ok, I gave you the code for free, but take a minute to look it over and really
-see what's happening here. What does my `PostsService` do?
+see what's happening here. What does my `PiratesService` do?
 
 _No, seriously, what is it doing? I'll wait._
 
-The truth is, our service isn't doing much, it's the function inside that's doing
-all the heavy lifting. The service itself is simply returning an __object__. That
+The service itself is simply returning an __object__. That
 object has a __property__ on it whose __value__ is a __function__. That function is making
 an __http request__ to our backend! And because this is a full stack app, we can just
-make that call to `/api/posts` (or whatever your route is named). Isn't that nice
-and clean? Our `all` function has one itty bitty responsibility - to go get all of our posts.
+make that call to `/api/pirates`. Isn't that nice
+and clean? Our `all` function has one itty bitty responsibility - to go get all of our pirates.
 
-__Wait, what? We don't have an Express route called `/api/posts`__
+__Wait, what? We don't have an Express route called `/api/pirates`__
 
 You're right. Go make one. You've done this before. You're just back in your Express
 routes making a call to your database and getting a response. But instead of rendering
-a page, your going to send back `json`.
+a page, your going to send back `json` using `res.json`.
+
+__Let's clean up some of our existing routes:__
 
 * Delete the `users.js` route, we're not going to use it.
 * Rename `index.js` to `api.js`
 * What changes do you need to make in your Express `app.js` to make this route a
-working route. You've done this a million times by now.
+working route. You've done this a million times by now. We want all of our pirate
+api routes to be prepended with `/api/pirates`.
 
 __In `api.js`:__
 
-* connect to your database (see `seed.js` if you need help)
-* connect to our posts collection (see `seed.js` if you need help)
-* add a get route for `/posts`
-* make a call to your database and retrieve all of our posts (use a promise)
-* then use `render.json(response)` to give the data to your front end.
+* use `knex` to connect to your database
+* write a function called Pirates that connects to our `pirates` table
+* add a get route for `/pirates`
+* make a call to your database and retrieve all of your pirates
+* use `render.json(pirates)` to give the data to your front end.
 
 __How do you know if you've done it right?__
 
-Go to `http://localhost:3000/api/posts`. You should see a `json` object of your
-posts.
+Go to `http://localhost:3000/api/pirates`. You should see a `json` object of  all
+your pirates.
+
+[RESCUE CODE](example_code.md)
 
 #### Step 2: Assign the response to a `$scope` variable
 
-Ok. We have a service that makes a call to our backend to get all of our posts
-from the database. Now, let's use that service in our `PostsController` to serve
-our posts to the view.
+Ok. We have a service that makes an api call to our backend to get all of our pirates
+from the database. Now, let's use that service in our `PiratesController` to serve
+our pirates to the view.
 
 What we'll need to do:
 
-* inject `PostsService` into our `PostsController` so we can use it
-* call the `all` function in our controller to get the posts
-* assign the result to a `$scope` variable so we can access our posts in the view
+* tell our app about `services/pirates_service.js`
+* inject `PiratesService` into our `PiratesController` so we can use it
+* call the `all` function in our controller to get the pirates
+* assign the result to a `$scope` variable so we can access our pirates in the view
 
-Right now, you're `PostsController` should look like this:
+Right now, your `PiratesController` should look like this:
 
 ```
 // app.js
-app.controller('PostsController', function ($scope) {
+app.controller('PiratesController', function ($scope) {
 
 })
 ```
 Not much going on there, which is kind of nice. We can just focus on making this
-one thing happen right now (getting the posts to our view!).
+one thing happen right now (getting the pirates to our view!).
 
-* Inject `PostsService` into our controller.
-* Call the `all` function to retrieve our posts (use a promise here too)
+* Inject `PiratesService` into our controller.
+* Call the `all` function to retrieve our pirates
   - __remember:__ Our service returns an _object_ that has a _property_ `all` that
   is a _function_. So, how do we call that function here?
-* Declare a `$scope` variable called `posts` and set its value to the response
+* Declare a `$scope` variable called `pirates` and set its value to the response
 you get from calling the `all` function.
-
-Ok, your controller should now look something like this:
-
-```
-// app.js
-
-app.controller('PostsController', function ($scope, PostsService) {
-  PostsService.all().then(function (posts) {
-    $scope.posts = posts;
-  })
-})
-```
 
 __Confirm that your function is getting back the `json` response from your backend__
 
 What's the simplest way to do this? `console.log` the response you're getting from
-the invoked function and confirm that you've got your post objects.
+the invoked function and confirm that you've got your pirate objects.
 
-#### Step 3: Iterate through our posts in the view
+#### Step 3: Iterate through our pirates in the view
 
 By now, you've done this many many times. The heavy lifting is done and all you
 have to do is display the fruits of your labor.
 
-__In our view, iterate through our array of posts and display the following:__
-  * image
-  * title
-  * author
-  * description
-  * created at (remember, Angular has directives to help you format this)
-  * add some bootstrap along the way to make it look nice
+__In our view, iterate through our array of pirates and display the following:__
+* name
+* poison
+* accessory
+* image_url (display as an image)
+* add some bootstrap to make it look nice
 
 
-__NOTE:__ Notice how using a `seed.js` file helped us to get a lot of things up
-and running in our app without having to have full CRUD functionality from the get go.
-
-__How could you better organize this code now that you have an idea how things work and what you want to do?__
-
-* in your `javascripts` directory `mkdir controllers`
-* `touch controllers/posts_controller.js`
-* in your `javascripts` directory `mkdir services`
-* `touch services/posts_service.js`
-
-__Now just move the chunks of code into their respective files and make sure everything still works. There's one detail left here that I haven't mentioned. I'll let you figure it out. If things aren't working, remember to go into your browser console and check for helpful errors.__
+__NOTE:__ Notice how using seeds helped us get a lot of things up
+and running in our app without having to have full CRUD functionality right out of the gate?
 
 ### Woo hoo! You've done it!
 
@@ -363,17 +344,20 @@ Ok, well sort of :D Let's keep going.
 
 ### Take what we've done so far and apply it. CRUD
 
-We've already done READ. See if you can wire up the rest.
-
 Here's your check list. All of this should be in your wheelhouse.
 
-__1. Add a form so users can add new posts.__
+__1. Add a form so users can add new pirates.__
 
 __2. Send form data to your back end__
-  * add another function to your PostsService that sends the data to an Express route.
+  * add another function to your `PiratesService` that sends the data to an Express route.
     What's a good name for that function? How about `create`?
   * create an Express route. What `http` verb do we use to post data? What
     should the path be?
 
-__Next, do delete or update. Stay calm and think things through. Have fun and explore.
-Make mistakes and don't worry about them!__
+__Final Exercise:__
+
+You've come a _long_ way since you spun up your first Angular app (remember the Reddit Clone?!).
+That app is a mess when you consider how much you now know about MVC architecture.
+
+Your `deliverable` is to refactor __Reddit Clone__ to be more modular and use an Express / Postgres backend.
+Your __Reddit Clone__ should have full CRUD operations for Posts and Comments

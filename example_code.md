@@ -1,3 +1,5 @@
+## Angular Basic Set Up
+<a name="angular-routes"></a>
 ```js
 // app.js
 
@@ -25,12 +27,13 @@ app.controller('PiratesController', ['$scope', function ($scope) {
     <meta charset="utf-8">
     <title>Pirates Demo</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/style.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body ng-controller="PiratesController">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="#/">
             <span class="glyphicon glyphicon-eye-close"></span>
           </a>
         </div>
@@ -43,4 +46,55 @@ app.controller('PiratesController', ['$scope', function ($scope) {
     <script type="text/javascript" src="/javascripts/controllers/pirates_controller.js"></script>
   </body>
 </html>
+```
+
+## Express Routes
+
+__Express app.js__
+
+```js
+// app.js, instead of users or routes
+var api = require('./routes/api');
+```
+
+```js
+// app.js instead of users or routes
+app.use('/api/pirates', api);
+```
+
+__Express routes__
+```sh
+routes
+  └── api.js
+```
+
+```js
+
+// in api.js
+var express = require('express');
+var router = express.Router();
+var knex = require('../db/knex.js');
+function Pirates() {
+  return knex('pirates');
+}
+
+router.get('/', function(req, res, next) {
+  Pirates().select().then(function (pirates) {
+    res.json(pirates);
+  })
+});
+
+module.exports = router;
+```
+
+## Pirates Controller with $http request to backend
+
+```js
+// app.js
+
+app.controller('PiratesController', ['$scope', 'PiratesService', function ($scope, PiratesService) {
+  PiratesService.all().then(function (pirates) {
+    $scope.pirates = pirates;
+  })
+}])
 ```
