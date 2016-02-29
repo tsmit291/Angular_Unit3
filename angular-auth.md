@@ -62,7 +62,7 @@ Now that we know what a JWT is, we can begin to secure our API with them. Here a
 **Middleware logic for protecting a route**
 
 1. Extract the JWT from the headers
-2. If the JWT is expired, send a unauthenticated error
+2. Verify that the JWT is good. If it is not then send an authentication error back to the client.
 2. Get the user info from the database that corresponds to the JWT.
 3. If you could not find the JWT in the database, send a unauthenticated error
 3. If you got here, then the JWT is good, let the user on in.
@@ -76,6 +76,8 @@ Note that the only new thing here is that you are storing the token in the datab
 **Exercise**
 
 Create a Express based CRUD API for a library with the following routes. Note that there is no front-end to this api, you will only be able to test it with POSTMAN or some other tool.
+
+To create the JWTs, use the [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
 
 1. Users should be able to create an account with a username and password, they will get back a token.
 2. Users should be able to login with their username and password. In return they will get a token.
@@ -107,7 +109,7 @@ Lets look at what is required for each of these steps. But first, create a basic
 3. view one book
 3. edit a book
 
-Once you have the skeloton of the app up and running, its time to wire everything up.
+Once you have the skeleton of the app up and running, its time to wire everything up.
 
 ### Login form
 
@@ -121,6 +123,8 @@ Here is what needs to happen when the user creates an account or logs in.
 There is a lot of stuff going on here. What you will have to do is create an auth service that includes the method logIn(username, password) that returns a promise.
 
 You will also need to create the local storage service with getter and setter methods. This service can be used for more than storing the users token, but for now that is what we are using it for.
+
+To find out how to manipulate Local Storage, check out the [documentation on MDN](localstorage).
 
 ## View all books
 
@@ -139,6 +143,8 @@ If there is no token, then display an appropriate error message.
 Otherwise display the edit form, and allow the user to make any changes they want.
 
 When they click the save button, send the HTTP request with the token and appropriate changes to the book in question. If the server responds with a 200 status request, then the change was successful!
+
+The documentation for adding a header is on the [$http documentationn page](https://docs.angularjs.org/api/ng/service/$http) under the title **Setting HTTP Headers**.
 
 However if there was an unauthenticated error, delete the token from local storage and redirect the user to the login route.
 
@@ -174,5 +180,6 @@ Research the following technologies and answer the following questions below.
 
 ## Bonus
 
+* Make the JWT expire after a certain amount of time (lets say 10 days, but the number could be anything)
 * Refactor your app to use interceptors to send the jwt tokens in every $http request instead of manually adding them in the auth service.
 * Use resolve with ngRoute to not allow users to access the edit book route at all if they are not authenticated.
