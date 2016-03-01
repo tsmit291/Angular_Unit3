@@ -73,7 +73,7 @@ Note that the only new thing here is that you are storing the token in the datab
 
 **Exercise**
 
-Create a Express based CRUD API for a library with the following routes. Note that there is no front-end to this api, you will only be able to test it with POSTMAN or some other tool.
+Create a Express based CRUD API for a library with the following routes. Note that we have not yet built the Angularjs front-end for this api, you will only be able to test it with POSTMAN or some other tool.
 
 To create the JWTs, use the [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
 
