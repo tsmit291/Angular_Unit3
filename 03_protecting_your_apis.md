@@ -16,21 +16,19 @@ But before we go into that, lets talk about tokens.
 
 Simply put, a token is a thing that is used as an identifier. Make sense? Lets try again but using a story.
 
-`The King gave the Herald his signet ring made of pure jade.
+> The King gave the Herald his signet ring made of pure jade.
 
-"When you find my sister, give her this ring", he said, a serious look on his face. "It shall prove that you carrying a message from me.".`
+> "When you find my sister, give her this ring", he said, a serious look on his face. "It shall prove that you carrying a message from me.".
 
 Basically, the ring is a token. It is used as a device to ensure that the message is from the true source instead of an enemy.
 
 ### But why do we need tokens?
 
-Lets jump back into the present. We, like the King need to be able to send messages back and forth between our API. In our case however we are designing both the API (the Sister) and the front end (the King).
+We need to design a system where we can allow authenticated users from any kind of device (iOS, Android, Web App) to access our API.
 
-At first it would seem that cookies would work here as well as any other web app. However we don't want to be limited to just sending messages from one type of client to one server. Imagine if we had a bunch of clients that could all use our API. For example we could have an Angular app, a iOS app, and an Android app.
+At first it would seem that cookies would work here just like it does for any other web app that we have built. Unfortunately, while cookies work great on web apps, they are not so good with iOS and Android apps. This is the main reason to use tokens.
 
-While cookies work great on web browsers (Angular), they are not so good with iOS and Android apps. This is the main reason to use tokens.
-
-There is another reason, Horizontile Scaling. This involves having more than one API server at the same time for scaling reasons.
+There is another reason, Horizontal Scaling. This involves adding more copies of your API server to handle an increase of users/traffic.
 
 ### What kind of token to use?
 
