@@ -88,7 +88,7 @@ To create the JWTs, use the [jsonwebtoken](https://www.npmjs.com/package/jsonweb
 
 ## Using JWT protected APIs with Angular
 
-Now that you have a fully working API that is protected with JWTs, it is time for us to create a client that will use that API.
+Now that you have a fully working API that is protected with JWTs, it is time for us to create an Angularjs front-end that will use that API.
 
 In general, here is how authentication works with Angular.
 
