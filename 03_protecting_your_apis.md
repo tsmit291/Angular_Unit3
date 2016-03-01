@@ -18,7 +18,7 @@ Simply put, a token is a thing that is used as an identifier. Make sense? Lets t
 
 `The King gave the Herald his signet ring made of pure jade.
 
-"When you find my sister, give her this ring", her said, a serious look on his face. "It shall prove that you carrying a message from me.".`
+"When you find my sister, give her this ring", he said, a serious look on his face. "It shall prove that you carrying a message from me.".`
 
 Basically, the ring is a token. It is used as a device to ensure that the message is from the true source instead of an enemy.
 
