@@ -42,46 +42,39 @@ express pirates --git
 cd pirates
 npm install
 ```
-1. Install Angular and Bootstrap using Bower
-```sh
-cd public/
-bower init (just hit enter a few times)
-bower install angular bootstrap --save
-```
+1. Install Angular and Bootstrap using CDN
 
-1. Set up your file structure (you should be in your public directory)
+
+1. Set up your file structure in your `public` directory
 ```sh
-touch index.html
-touch javascripts/app.js
-mkdir javascripts/controllers
-mkdir javascripts/services
-mkdir views  
+touch public/index.html
+touch public/javascripts/app.js
+mkdir public/javascripts/controllers
+mkdir public/javascripts/services
+mkdir public/views  
 ```
 
 1. Wire it all up
-  1. in `bower_components` grab the file paths for `bootstrap/dist/css/bootstrap.min.css`
-  and `angular/angular.min.js` and add them to your `index.html`
-    1. Add a simple bootstrap branding header to your app, replacing the image with a glyphicon of your choosing.
+  1. Add a simple bootstrap branding header to your app, replacing the image with a glyphicon of your choosing.
 
-      __EXAMPLE:__
-      ```html
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-              <span class="glyphicon glyphicon-eye-close"></span>
-            </a>
-          </div>
+    __EXAMPLE:__
+    ```html
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <span class="glyphicon glyphicon-eye-close"></span>
+          </a>
         </div>
-      </nav>
-    ```
-    1. Add a simple Angular expression to your `index.html`
-    ```js
-    {{ 1 + 3 }}
-    ```
-  1. `cd../` back up to your app's root directory
-  1. start nodemon
-  1. confirm that everything is wired up and then:
+      </div>
+    </nav>
+  ```
+  1. Add a simple Angular expression to your `index.html`
+  ```js
+  {{ 1 + 3 }}
+  ```
+1. start nodemon
+1. confirm that everything is wired up and then:
 ```sh
 git status
 git add -A
@@ -109,7 +102,7 @@ git commit -m "instantiate pirates module"
 1. In `pirates.html` add `<h1>Pirates</h1>`
 
 #### Part II - Routing in Angular
-1. In your `public` directory `bower install angular-route --save`
+1. Go get the CDN for `angular-route`
 1. Include the `angular-route.min.js` script in your `index.html`
 1. add `ngRoute` to your app module `var app = angular.module('pirates', ['ngRoute'])`
 1. Config your routes to render `pirates.html` when a user visits `/`
@@ -361,4 +354,11 @@ That app is a mess when you consider how much you now know about MVC architectur
 
 * refactor __Reddit Clone__ to be more modular and use an Express / Postgres backend.
 * Your __Reddit Clone__ should have full CRUD operations for Posts and Comments.
-* Modify your `knex` configuration and deploy to Heroku
+
+## Deploy Your App
+
+Modify your `knex` configuration and deploy to Heroku.
+
+__Support:__
+
+[Using Knex with Heroku](https://coursework.galvanize.com/curriculums/23/learning_experiences/1139) 

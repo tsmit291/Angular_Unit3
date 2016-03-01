@@ -26,7 +26,7 @@ app.controller('PiratesController', ['$scope', function ($scope) {
   <head>
     <meta charset="utf-8">
     <title>Pirates Demo</title>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/stylesheets/style.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body ng-controller="PiratesController">
@@ -40,8 +40,8 @@ app.controller('PiratesController', ['$scope', function ($scope) {
       </div>
     </nav>
     <div ng-view></div>
-    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
     <script type="text/javascript" src="/javascripts/app.js"></script>
     <script type="text/javascript" src="/javascripts/controllers/pirates_controller.js"></script>
   </body>
