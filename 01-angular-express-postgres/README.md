@@ -36,16 +36,16 @@ __What will our new file structure look like?__
 
 
 ### Set Up
-1. New up an Express App named pirates
+__#1 New up an Express App named pirates__
 ```sh
 express pirates --git
 cd pirates
 npm install
 ```
-1. Install Angular and Bootstrap using CDN
+__#2 Install Angular and Bootstrap using CDN__
 
 
-1. Set up your file structure in your `public` directory
+__#3 Set up your file structure in your `public` directory__
 ```sh
 touch public/index.html
 touch public/javascripts/app.js
@@ -54,27 +54,27 @@ mkdir public/javascripts/services
 mkdir public/views  
 ```
 
-1. Wire it all up
-  1. Add a simple bootstrap branding header to your app, replacing the image with a glyphicon of your choosing.
+__#4 Wire it all up__
+* Add a simple bootstrap branding header to your app, replacing the image with a glyphicon of your choosing.
 
-    __EXAMPLE:__
-    ```html
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <span class="glyphicon glyphicon-eye-close"></span>
-          </a>
-        </div>
+  __EXAMPLE:__
+  ```html
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <span class="glyphicon glyphicon-eye-close"></span>
+        </a>
       </div>
-    </nav>
-  ```
-  1. Add a simple Angular expression to your `index.html`
-  ```js
-  {{ 1 + 3 }}
-  ```
-1. start nodemon
-1. confirm that everything is wired up and then:
+    </div>
+  </nav>
+```
+* Add a simple Angular expression to your `index.html`
+```js
+{{ 1 + 3 }}
+```
+* start nodemon
+* confirm that everything is wired up and then:
 ```sh
 git status
 git add -A
@@ -361,4 +361,4 @@ Modify your `knex` configuration and deploy to Heroku.
 
 __Support:__
 
-[Using Knex with Heroku](https://coursework.galvanize.com/curriculums/23/learning_experiences/1139) 
+[Using Knex with Heroku](https://coursework.galvanize.com/curriculums/23/learning_experiences/1139)
