@@ -3,7 +3,7 @@ var app = angular.module('pirates', ['ngRoute']);
 app.config(function ($routeProvider){
   $routeProvider
   .when('/', {
-    templateUrl: 'index.html',
+    templateUrl: 'views/pirates.html',
     controller: 'piratesController'
   })
 })
