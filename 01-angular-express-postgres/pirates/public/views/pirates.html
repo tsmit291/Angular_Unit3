@@ -1,1 +1,10 @@
 <h1>{{message}}</h1>
+<div class="container" ng-repeat="pirate in pirates">
+  <div class="well">
+    <h3>Name: {{pirate.name}}</h3>
+    <h5>Accessory: {{pirate.accessory}}</h5>
+    <h5><img src="{{pirate.image_url}}" width="55px"></h5>
+    <h5>Pirate Poison: {{pirate.poison}}</h5>
+    <hr>
+  </div>
+</div>

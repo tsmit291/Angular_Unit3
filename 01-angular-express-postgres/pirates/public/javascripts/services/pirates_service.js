@@ -3,10 +3,10 @@ app.factory('PiratesService', function ($http) {
     all: function() {
       return $http.get('/api/pirates').then(function (response) {
         return response.data;
-      })
+        })
+      }
     }
-  }
-})
+  })
 
 // spin up the PiratesService service.
 // returns an object with an ALL function.
