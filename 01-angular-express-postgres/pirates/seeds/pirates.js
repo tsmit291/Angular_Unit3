@@ -19,6 +19,6 @@ exports.seed = function(knex, Promise) {
       poison: 'Rum',
       accessory: 'peg leg',
       image_url: 'http://www.qaronline.org/portals/3/images/Black%20Beard-Kachik.jpg'
-     })
+    })
   );
 };
